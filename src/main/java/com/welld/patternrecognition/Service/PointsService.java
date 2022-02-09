@@ -27,17 +27,19 @@ public class PointsService {
         List<Line2D> lines= new ArrayList<>();
         for(int i=0;i<pointList.size();i++){
             for(int j=i+1;j<pointList.size();j++){
+                //take every two points in the space and make a line
                 Point2D point1= modelToJavaPoint(pointList.get(i));
                 Point2D point2= modelToJavaPoint(pointList.get(j));
                 Line2D line = new Line2D.Double(point1,point2);
                 lines.add(line);
             }
         }
+        // for every line we are looping through all points to check if this point lies on the straight line or no
         for(Line2D line : lines){
             List<Point> pointsInline = new ArrayList<>();
             for(Point p : pointList){
                 Point2D temp=modelToJavaPoint(p);
-                if(line.relativeCCW(temp)<=abs){
+                if(Math.abs(line.relativeCCW(temp))<=abs){
                     pointsInline.add(p);
                 }
             }
