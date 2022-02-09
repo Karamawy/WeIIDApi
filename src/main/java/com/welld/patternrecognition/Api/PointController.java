@@ -17,7 +17,7 @@ public class PointController {
         return pointsService.getAllPointsList();
     }
 
-    @PostMapping("/point")
+    @PostMapping(value = "/point", consumes = {"application/json"})
     public void addPoint(@RequestBody Point point){
         pointsService.addPoint(point);
     }
@@ -28,6 +28,6 @@ public class PointController {
     }
     @GetMapping("/lines/{n}")
     public List<List<Point>> getAllLines(@PathVariable("n") int n){
-        pointsService.getAllLines(n);
+        return pointsService.getAllLines(n);
     }
 }

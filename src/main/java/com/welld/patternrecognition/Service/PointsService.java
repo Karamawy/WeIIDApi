@@ -20,9 +20,10 @@ public class PointsService {
     private Point2D modelToJavaPoint(Point p){
         return new Point2D.Double(p.getX(),p.getY());
     }
-    private HashMap<Line2D,List<Point>> pointsOnLine;
 
     public List<List<Point>> getAllLines(int n){
+        double abs = 1e-3;
+        HashMap<Line2D,List<Point>> pointsOnLine = new HashMap<>();
         List<Line2D> lines= new ArrayList<>();
         for(int i=0;i<pointList.size();i++){
             for(int j=i+1;j<pointList.size();j++){
@@ -36,7 +37,7 @@ public class PointsService {
             List<Point> pointsInline = new ArrayList<>();
             for(Point p : pointList){
                 Point2D temp=modelToJavaPoint(p);
-                if(line.contains(temp)==true){
+                if(line.relativeCCW(temp)<=abs){
                     pointsInline.add(p);
                 }
             }
